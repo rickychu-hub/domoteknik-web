@@ -10,7 +10,6 @@ const links = [
     { href: "/servicios", label: "Servicios" },
     { href: "/ecosistema", label: "Ecosistema" },
     { href: "/proyectos", label: "Proyectos" },
-    { href: "/simulador", label: "Simulador" },
     { href: "/contacto", label: "Contacto" },
 ];
 

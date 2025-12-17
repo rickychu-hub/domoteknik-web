@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -228,7 +228,7 @@ const SystemVisualizer = ({ selection }: { selection: SelectionState }) => {
 
 // --- MAIN PAGE ---
 
-export default function SimulatorPage() {
+function SimulatorContent() {
     const searchParams = useSearchParams();
     const [step, setStep] = useState(1);
 
@@ -453,5 +453,17 @@ export default function SimulatorPage() {
                 )}
             </main>
         </div>
+    );
+}
+
+export default function SimulatorPage() {
+    return (
+        <Suspense fallback={
+            <div className="flex h-screen w-full items-center justify-center bg-slate-950 text-lime-400">
+                <span className="animate-pulse font-mono">Cargando Ecosistema...</span>
+            </div>
+        }>
+            <SimulatorContent />
+        </Suspense>
     );
 }

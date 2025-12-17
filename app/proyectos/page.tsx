@@ -1,256 +1,215 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, MapPin, Zap, Battery, Home, ArrowDown, Euro, Calendar } from "lucide-react";
-import { motion } from "framer-motion";
+import {
+    ArrowRight, MapPin, Zap, Battery, Home,
+    Leaf, Euro, Eye, CheckCircle2, Factory,
+    Building, Warehouse
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-// Mock Data for Projects
-const projects = [
+// --- PROJECT DATA ---
+type Category = "all" | "residencial" | "atico" | "industrial";
+
+interface Project {
+    id: number;
+    category: Category;
+    title: string;
+    location: string;
+    description: string;
+    badges: string[];
+    result: string;
+    roi: string;
+    image: string; // Unsplash URL
+}
+
+const projects: Project[] = [
     {
         id: 1,
-        title: "Residencia Las Rozas",
-        specs: ["10kWp Solar", "Batería 15kWh"],
-        roi: "3.5 Años",
-        image: "bg-slate-800", // Placeholder class
+        category: "residencial",
+        title: "Villa Pasiva Sant Cugat",
+        location: "Valldoreix, Sant Cugat",
+        description: "Desconexión total del gas. Integración arquitectónica en vivienda unifamiliar de diseño.",
+        badges: ["Solar 12kW", "Batería 20kWh", "Aerotermia"],
+        result: "Factura media: 45€/mes",
+        roi: "4.5 Años",
+        image: "https://images.unsplash.com/photo-1600596542815-e32cb5308d99?q=80&w=2070&auto=format&fit=crop",
     },
     {
         id: 2,
-        title: "Chalet Pozuelo",
-        specs: ["Aerotermia 12kW", "Loxone Full"],
-        roi: "4.2 Años",
-        image: "bg-slate-800",
+        category: "atico",
+        title: "Ático Sarrià-Sant Gervasi",
+        location: "Barcelona Alta",
+        description: "Instalación técnica en cubierta plana con lastres de hormigón. Sin perforar impermeabilización.",
+        badges: ["Solar 4kW", "Cargador EV", "Pérgola Solar"],
+        result: "Autoconsumo: 75%",
+        roi: "3.8 Años",
+        image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
     },
     {
         id: 3,
-        title: "Nave Industrial Getafe",
-        specs: ["50kWp Solar", "Cargadores x4"],
-        roi: "2.8 Años",
-        image: "bg-slate-800",
+        category: "residencial",
+        title: "Rehabilitación Sitges",
+        location: "Sitges, Garraf",
+        description: "Estética 'Full Black' para preservar el diseño mediterráneo cerca del mar.",
+        badges: ["Estética Premium", "Aerotermia", "Suelo Radiante"],
+        result: "Confort térmico 365 días",
+        roi: "5.0 Años",
+        image: "https://images.unsplash.com/photo-1600607687644-c6cbd7163f2c?q=80&w=2070&auto=format&fit=crop",
     },
     {
         id: 4,
-        title: "Villa Boadilla",
-        specs: ["Off-Grid Total", "Suelo Radiante"],
-        roi: "5.0 Años",
-        image: "bg-slate-800",
-    },
-    {
-        id: 5,
-        title: "Ático Centro",
-        specs: ["Aerotermia Híbrida", "Clima Zonal"],
-        roi: "4.0 Años",
-        image: "bg-slate-800",
-    },
-    {
-        id: 6,
-        title: "Eco-House Sierra",
-        specs: ["100% Autonomía", "Pozo Canadiense"],
-        roi: "3.8 Años",
-        image: "bg-slate-800",
+        category: "industrial",
+        title: "Logística Sostenible",
+        location: "Zona Franca, BCN",
+        description: "Nave industrial de 2.000m² con inyección cero y compensación de reactiva.",
+        badges: ["Industrial 100kW", "Ahorro Fiscal", "Monitorización"],
+        result: "Retorno Inversión: 3.5 Años",
+        roi: "3.5 Años",
+        image: "https://images.unsplash.com/photo-1611365892117-00ac5ef43c90?q=80&w=2070&auto=format&fit=crop",
     },
 ];
 
+const categories = [
+    { id: "all", label: "Todas" },
+    { id: "residencial", label: "Residencial", icon: Home },
+    { id: "atico", label: "Áticos BCN", icon: Building },
+    { id: "industrial", label: "Industrial", icon: Factory },
+];
+
 export default function ProyectosPage() {
+    const [activeCategory, setActiveCategory] = useState<Category>("all");
+
+    const filteredProjects = activeCategory === "all"
+        ? projects
+        : projects.filter(p => p.category === activeCategory);
+
     return (
-        <div className="min-h-screen bg-slate-950 text-slate-50">
-            {/* HERO SECTION */}
-            <section className="relative py-24 px-4 overflow-hidden border-b border-slate-900">
-                <div className="max-w-6xl mx-auto text-center space-y-8 relative z-10">
-                    <div className="inline-flex items-center space-x-2 text-lime-400 font-bold tracking-wider uppercase text-sm">
-                        <Euro className="w-4 h-4" />
-                        <span>Prueba Social Financiera</span>
+        <div className="min-h-screen bg-slate-950 text-slate-50 font-sans">
+
+            {/* 1. HERO SECTION (CATALONIA CONTEXT) */}
+            <section className="relative py-24 px-4 border-b border-slate-900 overflow-hidden">
+                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(132,204,22,0.03))]" />
+                <div className="max-w-5xl mx-auto text-center space-y-8 relative z-10">
+                    <div className="inline-flex items-center space-x-2 text-lime-400 font-bold tracking-wider uppercase text-xs bg-lime-500/10 px-3 py-1 rounded-full border border-lime-500/20">
+                        <MapPin className="w-4 h-4" />
+                        <span>Referentes en el Sector</span>
                     </div>
-                    <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white leading-tight">
-                        Resultados Reales. <br />
-                        <span className="text-lime-500">Facturas a 0€.</span>
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white leading-tight">
+                        Proyectos en <span className="text-transparent bg-clip-text bg-gradient-to-r from-lime-400 to-emerald-500">Cataluña.</span>
                     </h1>
-                    <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto">
-                        No creas en promesas. Mira lo que nuestros ingenieros han logrado en hogares como el tuyo.
-                        Matemáticas simples, ahorro masivo.
+                    <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                        De l'Empordà al Vallès. Transformamos viviendas y empresas locales con ingeniería de precisión y conocimiento del territorio.
                     </p>
                 </div>
             </section>
 
-            {/* FEATURED CASE STUDY (Bill Comparator) */}
-            <section className="py-24 px-4 bg-slate-900/30">
-                <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-                    {/* LEFT: DATA */}
-                    <div className="space-y-8">
-                        <div className="flex items-center gap-2 text-slate-500 font-mono text-sm uppercase">
-                            <MapPin className="w-4 h-4" /> La Moraleja, Madrid
-                        </div>
-                        <h2 className="text-4xl font-bold text-white">Villa Autocosumo Total</h2>
-                        <div className="grid grid-cols-2 gap-6">
-                            <div className="p-4 bg-slate-900 border border-slate-800 rounded-xl">
-                                <div className="text-slate-400 text-sm mb-1">Ahorro Anual</div>
-                                <div className="text-3xl font-bold text-lime-500">4.500€</div>
-                            </div>
-                            <div className="p-4 bg-slate-900 border border-slate-800 rounded-xl">
-                                <div className="text-slate-400 text-sm mb-1">Retorno (ROI)</div>
-                                <div className="text-3xl font-bold text-white">4.1 Años</div>
-                            </div>
-                        </div>
-                        <ul className="space-y-4 text-slate-400 pt-4">
-                            <li className="flex items-center gap-2"><Zap className="w-4 h-4 text-lime-500" /> 12kWp Fotovoltaica SunPower</li>
-                            <li className="flex items-center gap-2"><Battery className="w-4 h-4 text-lime-500" /> 20kWh Batería Virtual</li>
-                            <li className="flex items-center gap-2"><Home className="w-4 h-4 text-lime-500" /> Control Integral Loxone</li>
-                        </ul>
-                    </div>
-
-                    {/* RIGHT: BILL COMPARATOR VISUAL */}
-                    <div className="relative h-[500px] flex items-center justify-center bg-slate-950 rounded-3xl border border-slate-800 p-8 shadow-2xl overflow-hidden group">
-
-                        {/* Background Grid */}
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#1e293b_1px,_transparent_1px)] bg-[size:20px_20px] opacity-20" />
-
-                        <div className="relative flex items-center gap-8">
-
-                            {/* OLD BILL (Red) */}
-                            <motion.div
-                                initial={{ x: -20, opacity: 0.5, scale: 0.9 }}
-                                whileInView={{ x: 0, opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.5 }}
-                                className="w-64 bg-slate-900 border-2 border-red-500/20 rounded-2xl p-6 shadow-xl relative rotate-[-6deg] group-hover:rotate-[-12deg] transition-transform duration-500"
-                            >
-                                <div className="text-center border-b border-slate-800 pb-4 mb-4">
-                                    <div className="text-xs text-slate-500 uppercase font-bold">Antes</div>
-                                    <div className="text-red-500 font-mono text-4xl font-bold">350€</div>
-                                    <div className="text-xs text-red-400 mt-1">/ MES</div>
-                                </div>
-                                <div className="space-y-2 text-xs text-slate-500 font-mono">
-                                    <div className="flex justify-between"><span>Potencia</span><span>45€</span></div>
-                                    <div className="flex justify-between"><span>Consumo</span><span>210€</span></div>
-                                    <div className="flex justify-between"><span>Impuestos</span><span>95€</span></div>
-                                </div>
-                                <div className="absolute -top-3 -right-3 bg-red-500 text-slate-950 text-xs font-bold px-3 py-1 rounded-full">
-                                    DOLOROSO
-                                </div>
-                            </motion.div>
-
-                            {/* ARROW */}
-                            <div className="z-10 bg-slate-800 p-2 rounded-full border border-slate-700">
-                                <ArrowRight className="text-white w-6 h-6" />
-                            </div>
-
-                            {/* NEW BILL (Lime) */}
-                            <motion.div
-                                initial={{ x: 20, opacity: 0.5, scale: 0.9 }}
-                                whileInView={{ x: 0, opacity: 1, scale: 1.1 }}
-                                transition={{ duration: 0.5, delay: 0.2 }}
-                                className="w-64 bg-slate-900 border-2 border-lime-500 rounded-2xl p-6 shadow-[0_0_50px_rgba(132,204,22,0.2)] relative rotate-[6deg] group-hover:rotate-[0deg] transition-transform duration-500 z-20"
-                            >
-                                <div className="text-center border-b border-lime-500/20 pb-4 mb-4">
-                                    <div className="text-xs text-lime-500 uppercase font-bold">Ahora (Domoteknik)</div>
-                                    <div className="text-white font-mono text-5xl font-bold">0€</div>
-                                    <div className="text-xs text-lime-400 mt-1">/ SIEMPRE</div>
-                                </div>
-                                <div className="space-y-2 text-xs text-slate-400 font-mono">
-                                    <div className="flex justify-between"><span>Potencia</span><span>0€ (Comp.)</span></div>
-                                    <div className="flex justify-between"><span>Consumo</span><span>0€</span></div>
-                                    <div className="flex justify-between"><span>Excedentes</span><span className="text-lime-500">-45€</span></div>
-                                </div>
-                                <div className="absolute -top-4 -right-4 bg-lime-500 text-slate-950 text-sm font-bold px-4 py-1 rounded-full shadow-lg animate-bounce">
-                                    LIBERTAD
-                                </div>
-                            </motion.div>
-
-                        </div>
-                    </div>
-
+            {/* 2. FILTERS */}
+            <section className="sticky top-16 z-40 bg-slate-950/90 backdrop-blur-lg border-b border-white/5 py-4 px-4 transition-all">
+                <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-2 md:gap-4">
+                    {categories.map((cat) => (
+                        <button
+                            key={cat.id}
+                            onClick={() => setActiveCategory(cat.id as Category)}
+                            className={cn(
+                                "flex items-center gap-2 px-6 py-2 rounded-full text-sm font-bold transition-all border",
+                                activeCategory === cat.id
+                                    ? "bg-lime-500 text-slate-950 border-lime-500 shadow-[0_0_20px_rgba(132,204,22,0.3)] scale-105"
+                                    : "bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-600 hover:text-white"
+                            )}
+                        >
+                            {cat.icon && <cat.icon className="w-4 h-4" />}
+                            {cat.label}
+                        </button>
+                    ))}
                 </div>
             </section>
 
-            {/* BENTO GRID PROJECTS */}
-            <section className="py-24 px-4">
-                <div className="max-w-6xl mx-auto">
-                    <h2 className="text-3xl font-bold text-white mb-12">Instalaciones Recientes</h2>
+            {/* 3. PROJECTS GRID (MAGAZINE STYLE) */}
+            <section className="py-20 px-4">
+                <div className="max-w-7xl mx-auto">
+                    <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                        <AnimatePresence mode="popLayout">
+                            {filteredProjects.map((project) => (
+                                <motion.div
+                                    layout
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, scale: 0.95 }}
+                                    transition={{ duration: 0.4 }}
+                                    key={project.id}
+                                    className="group relative bg-slate-900 rounded-[2rem] border border-slate-800 overflow-hidden hover:border-lime-500/30 transition-all duration-500 shadow-xl"
+                                >
+                                    {/* 1. IMAGE (Top Half) */}
+                                    <div className="h-72 w-full overflow-hidden relative">
+                                        <div
+                                            className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                                            style={{ backgroundImage: `url(${project.image})` }}
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80" />
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {projects.map((project) => (
-                            <div key={project.id} className="group relative h-80 bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden cursor-crosshair">
-                                {/* Background Image Placeholder */}
-                                <div className={cn("absolute inset-0 bg-slate-800 transition-transform duration-700 group-hover:scale-110", project.image)}>
-                                    {/* Abstract Pattern as placeholder */}
-                                    <div className="w-full h-full opacity-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-500 via-slate-900 to-slate-950"></div>
-                                </div>
-
-                                {/* Overlay Gradient */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
-
-                                {/* Content */}
-                                <div className="absolute bottom-0 left-0 right-0 p-6">
-                                    <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
-                                    <div className="flex flex-wrap gap-2 mb-4">
-                                        {project.specs.map((spec, i) => (
-                                            <span key={i} className="px-2 py-1 bg-slate-800/80 backdrop-blur-sm border border-slate-700 rounded text-xs text-slate-300">
-                                                {spec}
-                                            </span>
-                                        ))}
-                                    </div>
-
-                                    {/* HOVER REVEAL: ROI */}
-                                    <div className="h-0 group-hover:h-auto overflow-hidden transition-all duration-300">
-                                        <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-lime-500 font-bold">
-                                            <span>ROI Estimado:</span>
-                                            <span>{project.roi}</span>
+                                        {/* Floating Location Badge */}
+                                        <div className="absolute top-6 left-6 bg-slate-950/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 border border-white/10">
+                                            <MapPin className="w-3 h-3 text-lime-500" /> {project.location}
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
-            {/* IMPACT MAP (Abstract) */}
-            <section className="py-24 px-4 bg-slate-950 border-t border-slate-900 overflow-hidden">
-                <div className="max-w-4xl mx-auto text-center space-y-12">
-                    <div className="space-y-4">
-                        <h2 className="text-4xl font-bold text-white">Domoteknik en tu zona</h2>
-                        <p className="text-slate-400">Expandiendo la independencia energética por todo el territorio.</p>
-                    </div>
+                                    {/* 2. CONTENT (Bottom Half) */}
+                                    <div className="p-8 relative">
+                                        <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-lime-400 transition-colors">
+                                            {project.title}
+                                        </h3>
+                                        <p className="text-slate-400 text-sm mb-6 leading-relaxed">
+                                            {project.description}
+                                        </p>
 
-                    {/* ABSTRACT MAP VISUAL */}
-                    <div className="relative w-full h-[400px] bg-slate-900/50 rounded-3xl border border-slate-800 flex items-center justify-center overflow-hidden">
-                        {/* Grid Dots */}
-                        <div className="absolute inset-0 grid grid-cols-12 grid-rows-6 gap-4 p-8 opacity-20">
-                            {[...Array(72)].map((_, i) => (
-                                <div key={i} className="w-2 h-2 bg-slate-700 rounded-full mx-auto" />
+                                        {/* Tags */}
+                                        <div className="flex flex-wrap gap-2 mb-6">
+                                            {project.badges.map((tag, i) => (
+                                                <span key={i} className="bg-slate-800 border border-slate-700 text-slate-300 px-3 py-1 rounded-lg text-xs font-medium">
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+
+                                        {/* Result Box */}
+                                        <div className="bg-slate-950 rounded-xl p-4 border border-slate-800 flex items-center justify-between">
+                                            <div>
+                                                <div className="text-xs text-slate-500 uppercase font-bold mb-1">Resultado</div>
+                                                <div className="text-lime-500 font-bold text-lg flex items-center gap-2">
+                                                    <CheckCircle2 className="w-5 h-5" /> {project.result}
+                                                </div>
+                                            </div>
+                                            <div className="text-right">
+                                                <div className="text-xs text-slate-500 uppercase font-bold mb-1">ROI</div>
+                                                <div className="text-white font-mono font-bold">{project.roi}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.div>
                             ))}
-                        </div>
-
-                        {/* Glowing Green Nodes (Simulating Clusters) */}
-                        {[...Array(8)].map((_, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0.5, scale: 0.8 }}
-                                animate={{ opacity: [0.5, 1, 0.5], scale: [0.8, 1.2, 0.8] }}
-                                transition={{ duration: 3, delay: i * 0.5, repeat: Infinity }}
-                                className="absolute w-4 h-4 bg-lime-500 rounded-full shadow-[0_0_20px_#84cc16]"
-                                style={{
-                                    top: `${Math.random() * 80 + 10}%`,
-                                    left: `${Math.random() * 80 + 10}%`,
-                                }}
-                            />
-                        ))}
-
-                        <div className="relative z-10 bg-slate-950/80 backdrop-blur-md border border-slate-800 px-6 py-3 rounded-full text-white font-bold text-sm">
-                            +150 Proyectos Ejecutados
-                        </div>
-                    </div>
+                        </AnimatePresence>
+                    </motion.div>
                 </div>
             </section>
 
-            {/* CTA */}
-            <section className="py-24 px-4 text-center">
-                <Link
-                    href="/simulador"
-                    className="inline-flex items-center rounded-full bg-lime-500 px-10 py-5 text-lg font-bold text-slate-950 hover:bg-lime-400 transition-all shadow-[0_0_30px_rgba(132,204,22,0.3)] hover:scale-105"
-                >
-                    Quiero estos resultados <ArrowRight className="ml-2 w-6 h-6" />
-                </Link>
+            {/* 4. FINAL CTA */}
+            <section className="py-24 px-4 text-center border-t border-slate-900 bg-slate-950 relative overflow-hidden">
+                <div className="absolute inset-0 bg-lime-500/5" />
+                <div className="max-w-3xl mx-auto space-y-8 relative z-10">
+                    <h2 className="text-4xl font-bold text-white">¿Tienes una propiedad similar?</h2>
+                    <p className="text-xl text-slate-400">
+                        Nuestros ingenieros analizan tu caso específico en Barcelona, Girona o Tarragona sin coste.
+                    </p>
+                    <Link
+                        href="/simulador"
+                        className="inline-flex items-center rounded-full bg-lime-500 px-10 py-5 text-xl font-bold text-slate-950 hover:bg-lime-400 transition-all shadow-[0_0_40px_rgba(132,204,22,0.3)] hover:scale-105"
+                    >
+                        Solicitar Estudio en Cataluña <ArrowRight className="ml-2 w-6 h-6" />
+                    </Link>
+                </div>
             </section>
         </div>
     );
