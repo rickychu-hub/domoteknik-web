@@ -33,9 +33,9 @@ const services = [
         subtitle: "Carga tu coche a 0€/km usando el excedente solar. Gestión inteligente.",
         icon: Zap,
         href: "/servicios/cargadores",
-        color: "text-lime-400",
-        bgHover: "group-hover:shadow-lime-500/10",
-        borderHover: "group-hover:border-lime-500/50",
+        color: "text-purple-400",
+        bgHover: "group-hover:shadow-purple-500/10",
+        borderHover: "group-hover:border-purple-500/50",
     },
     {
         id: "domotica",
@@ -43,28 +43,28 @@ const services = [
         subtitle: "El sistema operativo de tu hogar. Automatización cableada y privada. Sin nubes.",
         icon: Brain,
         href: "/servicios/domotica",
-        color: "text-purple-400",
-        bgHover: "group-hover:shadow-purple-500/10",
-        borderHover: "group-hover:border-purple-500/50",
+        color: "text-lime-400",
+        bgHover: "group-hover:shadow-lime-500/10",
+        borderHover: "group-hover:border-lime-500/50",
     },
 ];
 
 export default function ServiciosPage() {
     return (
-        <div className="min-h-screen bg-slate-950 text-slate-50">
+        <div className="min-h-screen selection:bg-primary/30">
             {/* HERO SECTION */}
             <section className="relative py-24 px-4 overflow-hidden border-b border-slate-900">
                 {/* Subtle Grid Background */}
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:40px_40px] opacity-10" />
 
                 <div className="max-w-4xl mx-auto text-center space-y-8 relative z-10">
-                    <div className="inline-flex items-center space-x-2 text-lime-400 font-bold tracking-wider uppercase text-sm">
+                    <div className="inline-flex items-center space-x-2 text-primary font-bold tracking-wider uppercase text-sm">
                         <Cpu className="w-4 h-4" />
                         <span>Tecnología Unificada</span>
                     </div>
-                    <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white leading-tight">
+                    <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground leading-tight">
                         Ingeniería, <br />
-                        <span className="text-slate-500">no solo instalación.</span>
+                        <span className="text-muted-foreground">no solo instalación.</span>
                     </h1>
                     <p className="text-xl text-slate-400 max-w-3xl mx-auto">
                         Dominamos las 4 tecnologías que definen la vivienda del futuro.
@@ -81,13 +81,13 @@ export default function ServiciosPage() {
                             key={service.id}
                             href={service.href}
                             className={cn(
-                                "group relative min-h-[300px] flex flex-col justify-between p-10 bg-slate-900 rounded-3xl border border-slate-800 transition-all duration-300 hover:scale-[1.02] shadow-2xl",
+                                "group relative min-h-[300px] flex flex-col justify-between p-10 bg-[#162e20]/40 rounded-3xl border border-white/5 transition-all duration-300 hover:scale-[1.02] shadow-2xl backdrop-blur-sm",
                                 service.bgHover,
                                 service.borderHover
                             )}
                         >
                             <div className="space-y-6 relative z-10">
-                                <div className={cn("w-14 h-14 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center shadow-lg", service.color)}>
+                                <div className={cn("w-14 h-14 rounded-2xl bg-[#0b1d16] border border-white/10 flex items-center justify-center shadow-lg", service.color)}>
                                     <service.icon className="w-8 h-8" />
                                 </div>
                                 <div>
@@ -109,7 +109,7 @@ export default function ServiciosPage() {
             </section>
 
             {/* METHODOLOGY SECTION */}
-            <section className="py-24 px-4 bg-slate-900/30 border-t border-slate-900">
+            <section className="py-24 px-4 bg-white/5 border-t border-white/5 backdrop-blur-sm">
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">El Estándar Domoteknik</h2>
@@ -119,7 +119,7 @@ export default function ServiciosPage() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                         {/* 1. Design */}
                         <div className="flex flex-col items-center text-center gap-6">
-                            <div className="w-20 h-20 bg-slate-950 rounded-full flex items-center justify-center border border-slate-800 shadow-lg text-lime-500">
+                            <div className="w-20 h-20 bg-[#0b1d16] rounded-full flex items-center justify-center border border-white/10 shadow-lg text-primary">
                                 <PenTool className="w-8 h-8" />
                             </div>
                             <div>
@@ -132,7 +132,7 @@ export default function ServiciosPage() {
 
                         {/* 2. Installation */}
                         <div className="flex flex-col items-center text-center gap-6">
-                            <div className="w-20 h-20 bg-slate-950 rounded-full flex items-center justify-center border border-slate-800 shadow-lg text-blue-500">
+                            <div className="w-20 h-20 bg-[#0b1d16] rounded-full flex items-center justify-center border border-white/10 shadow-lg text-blue-400">
                                 <CheckCircle2 className="w-8 h-8" />
                             </div>
                             <div>
@@ -145,7 +145,7 @@ export default function ServiciosPage() {
 
                         {/* 3. Support */}
                         <div className="flex flex-col items-center text-center gap-6">
-                            <div className="w-20 h-20 bg-slate-950 rounded-full flex items-center justify-center border border-slate-800 shadow-lg text-purple-500">
+                            <div className="w-20 h-20 bg-[#0b1d16] rounded-full flex items-center justify-center border border-white/10 shadow-lg text-purple-400">
                                 <Activity className="w-8 h-8" />
                             </div>
                             <div>
@@ -160,7 +160,7 @@ export default function ServiciosPage() {
             </section>
 
             {/* CTA TRANSVERSAL */}
-            <section className="py-24 px-4 bg-lime-500 text-slate-950">
+            <section className="py-24 px-4 bg-primary text-[#0b1d16]">
                 <div className="max-w-4xl mx-auto text-center space-y-8">
                     <h2 className="text-3xl md:text-5xl font-bold">¿No sabes qué necesitas?</h2>
                     <p className="text-xl font-medium opacity-80 max-w-2xl mx-auto">
@@ -168,7 +168,7 @@ export default function ServiciosPage() {
                     </p>
                     <Link
                         href="/simulador"
-                        className="inline-flex items-center rounded-full bg-slate-950 px-10 py-5 text-lg font-bold text-white hover:bg-slate-900 transition-all shadow-2xl hover:scale-105"
+                        className="inline-flex items-center rounded-full bg-[#0b1d16] px-10 py-5 text-lg font-bold text-white hover:bg-black transition-all shadow-2xl hover:scale-105"
                     >
                         Usar Configurador de Ecosistema <ArrowRight className="ml-2 w-6 h-6" />
                     </Link>

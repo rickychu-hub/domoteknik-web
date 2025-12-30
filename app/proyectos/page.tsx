@@ -87,7 +87,7 @@ export default function ProyectosPage() {
         : projects.filter(p => p.category === activeCategory);
 
     return (
-        <div className="min-h-screen bg-slate-950 text-slate-50 font-sans">
+        <div className="min-h-screen font-sans selection:bg-primary/30">
 
             {/* 1. HERO SECTION (CATALONIA CONTEXT) */}
             <section className="relative py-24 px-4 border-b border-slate-900 overflow-hidden">
@@ -107,7 +107,7 @@ export default function ProyectosPage() {
             </section>
 
             {/* 2. FILTERS */}
-            <section className="sticky top-16 z-40 bg-slate-950/90 backdrop-blur-lg border-b border-white/5 py-4 px-4 transition-all">
+            <section className="sticky top-16 z-40 bg-[#0b1d16]/80 backdrop-blur-lg border-b border-white/5 py-4 px-4 transition-all">
                 <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-2 md:gap-4">
                     {categories.map((cat) => (
                         <button
@@ -116,8 +116,8 @@ export default function ProyectosPage() {
                             className={cn(
                                 "flex items-center gap-2 px-6 py-2 rounded-full text-sm font-bold transition-all border",
                                 activeCategory === cat.id
-                                    ? "bg-lime-500 text-slate-950 border-lime-500 shadow-[0_0_20px_rgba(132,204,22,0.3)] scale-105"
-                                    : "bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-600 hover:text-white"
+                                    ? "bg-primary text-[#0b1d16] border-primary shadow-[0_0_20px_rgba(132,204,22,0.3)] scale-105"
+                                    : "bg-white/5 text-muted-foreground border-white/10 hover:border-white/20 hover:text-white"
                             )}
                         >
                             {cat.icon && <cat.icon className="w-4 h-4" />}
@@ -140,7 +140,7 @@ export default function ProyectosPage() {
                                     exit={{ opacity: 0, scale: 0.95 }}
                                     transition={{ duration: 0.4 }}
                                     key={project.id}
-                                    className="group relative bg-slate-900 rounded-[2rem] border border-slate-800 overflow-hidden hover:border-lime-500/30 transition-all duration-500 shadow-xl"
+                                    className="group relative bg-white/5 rounded-[2rem] border border-white/10 overflow-hidden hover:border-primary/30 transition-all duration-500 shadow-xl backdrop-blur-sm"
                                 >
                                     {/* 1. IMAGE (Top Half) */}
                                     <div className="h-72 w-full overflow-hidden relative">
@@ -151,7 +151,7 @@ export default function ProyectosPage() {
                                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80" />
 
                                         {/* Floating Location Badge */}
-                                        <div className="absolute top-6 left-6 bg-slate-950/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 border border-white/10">
+                                        <div className="absolute top-6 left-6 bg-[#0b1d16]/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 border border-white/10">
                                             <MapPin className="w-3 h-3 text-lime-500" /> {project.location}
                                         </div>
                                     </div>
@@ -175,7 +175,7 @@ export default function ProyectosPage() {
                                         </div>
 
                                         {/* Result Box */}
-                                        <div className="bg-slate-950 rounded-xl p-4 border border-slate-800 flex items-center justify-between">
+                                        <div className="bg-[#0b1d16]/50 rounded-xl p-4 border border-white/5 flex items-center justify-between">
                                             <div>
                                                 <div className="text-xs text-slate-500 uppercase font-bold mb-1">Resultado</div>
                                                 <div className="text-lime-500 font-bold text-lg flex items-center gap-2">
@@ -196,7 +196,7 @@ export default function ProyectosPage() {
             </section>
 
             {/* 4. FINAL CTA */}
-            <section className="py-24 px-4 text-center border-t border-slate-900 bg-slate-950 relative overflow-hidden">
+            <section className="py-24 px-4 text-center border-t border-white/5 bg-white/[0.02] relative overflow-hidden backdrop-blur-sm">
                 <div className="absolute inset-0 bg-lime-500/5" />
                 <div className="max-w-3xl mx-auto space-y-8 relative z-10">
                     <h2 className="text-4xl font-bold text-white">¿Tienes una propiedad similar?</h2>

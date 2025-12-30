@@ -19,7 +19,7 @@ export default function ContactoPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-950 text-slate-50">
+        <div className="min-h-screen selection:bg-primary/30">
             {/* HERO SIMPLE */}
             <section className="relative py-24 px-4 overflow-hidden border-b border-slate-900">
                 <div className="max-w-4xl mx-auto text-center space-y-8 relative z-10">
@@ -37,7 +37,7 @@ export default function ContactoPage() {
                 <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
 
                     {/* OPTION A: NEW PROJECT (Main CTA) */}
-                    <div className="bg-slate-900/50 border border-lime-500/30 rounded-3xl p-8 hover:bg-slate-900 transition-all group relative overflow-hidden">
+                    <div className="bg-white/5 border border-primary/30 rounded-3xl p-8 hover:bg-white/10 transition-all group relative overflow-hidden backdrop-blur-sm">
                         <div className="absolute top-0 right-0 p-3 bg-lime-500/10 rounded-bl-2xl border-b border-l border-lime-500/20">
                             <Briefcase className="w-6 h-6 text-lime-500" />
                         </div>
@@ -56,7 +56,7 @@ export default function ContactoPage() {
                     </div>
 
                     {/* OPTION B: SUPPORT (Secondary) */}
-                    <div className="bg-slate-950 borer border-slate-800 rounded-3xl p-8 hover:border-slate-700 transition-all group">
+                    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 hover:border-white/20 transition-all group backdrop-blur-sm">
                         <div className="flex items-center gap-3 mb-4">
                             <h3 className="text-2xl font-bold text-white">Soy Cliente / Soporte</h3>
                         </div>
@@ -75,10 +75,10 @@ export default function ContactoPage() {
             </section>
 
             {/* CONTACT VISUAL DATA */}
-            <section className="py-12 px-4 border-t border-slate-900 bg-slate-900/20">
+            <section className="py-12 px-4 border-t border-white/5 bg-white/[0.02]">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
                     <div className="flex flex-col items-center md:items-start gap-4 p-6">
-                        <div className="w-12 h-12 bg-slate-900 rounded-full flex items-center justify-center text-lime-500 border border-slate-800">
+                        <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-primary border border-white/10">
                             <MapPin className="w-6 h-6" />
                         </div>
                         <div>
@@ -89,7 +89,7 @@ export default function ContactoPage() {
                     </div>
 
                     <div className="flex flex-col items-center md:items-start gap-4 p-6">
-                        <div className="w-12 h-12 bg-slate-900 rounded-full flex items-center justify-center text-blue-500 border border-slate-800">
+                        <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-blue-500 border border-white/10">
                             <Phone className="w-6 h-6" />
                         </div>
                         <div>
@@ -100,7 +100,7 @@ export default function ContactoPage() {
                     </div>
 
                     <div className="flex flex-col items-center md:items-start gap-4 p-6">
-                        <div className="w-12 h-12 bg-slate-900 rounded-full flex items-center justify-center text-purple-500 border border-slate-800">
+                        <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-purple-500 border border-white/10">
                             <MessageSquare className="w-6 h-6" />
                         </div>
                         <div>
@@ -114,7 +114,7 @@ export default function ContactoPage() {
 
             {/* NO-SPAM FORM */}
             <section id="contacto-form" className="py-24 px-4">
-                <div className="max-w-3xl mx-auto bg-slate-900 rounded-3xl border border-slate-800 p-8 md:p-12 shadow-2xl">
+                <div className="max-w-3xl mx-auto bg-[#0b1d16]/80 rounded-3xl border border-white/10 p-8 md:p-12 shadow-2xl backdrop-blur-xl">
                     <div className="text-center mb-10">
                         <h2 className="text-3xl font-bold text-white mb-2">Háblanos de tu proyecto</h2>
                         <p className="text-slate-400">Rellena los datos clave para que podamos estudiar tu caso antes de llamarte.</p>
@@ -145,14 +145,14 @@ export default function ContactoPage() {
                                     <label className="text-sm font-bold text-slate-300 ml-1">Nombre Completo</label>
                                     <input
                                         type="text" required placeholder="Tu nombre"
-                                        className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-lime-500 transition-colors"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
                                     />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-sm font-bold text-slate-300 ml-1">Teléfono</label>
                                     <input
                                         type="tel" required placeholder="600 000 000"
-                                        className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-lime-500 transition-colors"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
                                     />
                                 </div>
                             </div>
@@ -161,13 +161,13 @@ export default function ContactoPage() {
                                 <label className="text-sm font-bold text-slate-300 ml-1">Email</label>
                                 <input
                                     type="email" required placeholder="tu@email.com"
-                                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-lime-500 transition-colors"
+                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
                                 />
                             </div>
 
                             <div className="space-y-2">
                                 <label className="text-sm font-bold text-slate-300 ml-1">Tipo de Proyecto</label>
-                                <select className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-lime-500 transition-colors">
+                                <select className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors [&>option]:bg-[#0b1d16]">
                                     <option>Autoconsumo Solar y Baterías</option>
                                     <option>Aerotermia / Climatización</option>
                                     <option>Domótica Integral Loxone</option>
@@ -180,12 +180,12 @@ export default function ContactoPage() {
                                 <label className="text-sm font-bold text-slate-300 ml-1">Detalles Adicionales</label>
                                 <textarea
                                     rows={4} placeholder="Cuéntanos un poco sobre tu vivienda y tus objetivos..."
-                                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-lime-500 transition-colors"
+                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
                                 />
                             </div>
 
                             {/* HUMAN CHECK */}
-                            <div className="flex items-start gap-3 p-4 bg-slate-950/50 rounded-xl border border-slate-800/50">
+                            <div className="flex items-start gap-3 p-4 bg-white/5 rounded-xl border border-white/10">
                                 <input
                                     type="checkbox" required id="humanCheck"
                                     className="mt-1 w-5 h-5 accent-lime-500 cursor-pointer"

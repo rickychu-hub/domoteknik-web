@@ -1,35 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Navbar } from "@/components/navbar";
+import { cn } from "@/lib/utils";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://domoteknik.com'),
-  title: {
-    template: '%s | Domoteknik Ingeniería',
-    default: 'Domoteknik | Energía Renovable e Ingeniería Avanzada',
-  },
-  description: "Soluciones en Fotovoltaica, Aerotermia, Domótica y Cargadores Eléctricos. Tecnología eficiente para un futuro sostenible.",
-  keywords: ["Energía solar", "Aerotermia", "Madrid", "Instaladores", "Placas solares", "Cargadores VE"],
-  openGraph: {
-    type: 'website',
-    locale: 'es_ES',
-    url: 'https://domoteknik.com',
-    siteName: 'Domoteknik',
-  },
+  title: "Domoteknik | Ingeniería Energética",
+  description: "Diseña tu ecosistema de energía inteligente. Solar, Baterías y Aerotermia.",
 };
-
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
 
 export default function RootLayout({
   children,
@@ -37,16 +18,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        suppressHydrationWarning
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col font-sans bg-slate-950 text-slate-50`}
-      >
-        <Navbar />
-        <main className="flex-grow bg-slate-950">
-          {children}
-        </main>
-        <Footer />
+    <html lang="es" suppressHydrationWarning>
+      <body className={cn("min-h-screen bg-background font-sans antialiased", inter.className)}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          <main className="relative z-10">
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );

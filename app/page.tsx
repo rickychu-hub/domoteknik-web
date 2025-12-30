@@ -1,203 +1,252 @@
 import Link from "next/link";
 import {
   ArrowRight, Sun, Wind, PlugZap, BrainCircuit,
-  Cpu, Wrench, ShieldCheck, CheckCircle2, Factory,
-  LayoutGrid
+  Cpu, Wrench, ShieldCheck, Factory,
+  LayoutGrid, TrendingDown, XCircle, CheckCircle2
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-// --- COMPONENTS ---
-const ServiceCard = ({ icon: Icon, title, desc, href, colorClass }: { icon: any, title: string, desc: string, href: string, colorClass: string }) => (
-  <Link href={href} className="group relative bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-slate-600 transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-    <div className={cn("absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500", colorClass.replace("text-", "bg-"))} />
-    <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-colors", "bg-slate-950 group-hover:bg-slate-900", colorClass)}>
-      <Icon className="w-6 h-6" />
-    </div>
-    <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
-    <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
-    <div className="mt-4 flex items-center gap-2 text-xs font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity text-slate-500 group-hover:text-white">
-      Explorar <ArrowRight className="w-3 h-3" />
-    </div>
-  </Link>
-);
-
-const AuthorityPillar = ({ icon: Icon, title, desc, color }: { icon: any, title: string, desc: string, color: string }) => (
-  <div className="flex flex-col items-center text-center gap-4 p-6">
-    <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center mb-2", color)}>
-      <Icon className="w-8 h-8" />
-    </div>
-    <h3 className="text-xl font-bold text-white">{title}</h3>
-    <p className="text-slate-400 leading-relaxed text-sm md:text-base">{desc}</p>
-  </div>
-);
+// Components
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { FeatureCard } from "@/components/home/feature-card";
+import { AuthorityPillar } from "@/components/home/authority-pillar";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-lime-500/30">
+    // Note: bg-background is already on body, so we can use transparency or relative positioning mainly.
+    // We add the grid background here just like in simulator for consistency.
+    <div className="relative min-h-screen overflow-hidden selection:bg-primary/30 bg-transparent">
 
-      {/* 1. HERO SECTION */}
-      <section className="relative min-h-[90vh] flex flex-col items-center justify-center text-center px-4 overflow-hidden pt-20 pb-16">
-        {/* Tech Mesh Background */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
-        {/* Radial Glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_50%,#84cc1610,transparent)] pointer-events-none"></div>
 
-        <div className="relative z-10 max-w-5xl mx-auto space-y-8 animate-in fade-in zoom-in duration-1000 slide-in-from-bottom-5">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter leading-tight">
-            Autonomía Energética <span className="text-transparent bg-clip-text bg-gradient-to-r from-lime-400 to-emerald-500">Inteligente.</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Integramos Solar, Baterías y Aerotermia en un ecosistema único.<br className="hidden md:block" />
-            Ingeniería de precisión para quienes buscan control total, no parches.
-          </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <Link href="/simulador" className="w-full sm:w-auto bg-lime-500 text-slate-950 font-black px-8 py-4 rounded-full text-lg hover:bg-lime-400 hover:scale-105 transition-all shadow-[0_0_30px_rgba(132,204,22,0.3)] flex items-center justify-center gap-2">
-              DISEÑA TU ECOSISTEMA <ArrowRight className="w-5 h-5" />
-            </Link>
-            <Link href="/proyectos" className="w-full sm:w-auto border border-slate-700 text-slate-200 font-bold px-8 py-4 rounded-full text-lg hover:bg-slate-800 transition-all flex items-center justify-center gap-2">
-              Nuestra Ingeniería <LayoutGrid className="w-5 h-5 text-slate-500" />
-            </Link>
-          </div>
-        </div>
+      <div className="relative z-10 font-sans text-foreground">
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-slate-600">
-          <ArrowRight className="w-6 h-6 rotate-90" />
-        </div>
-      </section>
+        {/* 1. HERO SECTION */}
+        <section className="relative min-h-[90vh] flex flex-col items-center justify-center text-center px-4 overflow-hidden pt-20 pb-16">
 
-      {/* 2. PROBLEM VS SOLUTION */}
-      <section className="py-24 px-4 bg-slate-900 border-y border-slate-800/50">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          {/* The Past */}
-          <div className="space-y-6 text-center md:text-right border-b md:border-b-0 md:border-r border-slate-800 pb-12 md:pb-0 md:pr-12 md:mr-12 opacity-80 hover:opacity-100 transition-opacity">
-            <span className="text-red-500 font-bold tracking-widest uppercase text-xs">El Problema</span>
-            <h3 className="text-3xl md:text-4xl font-bold text-white">La Red es el Pasado</h3>
-            <p className="text-slate-400 text-lg leading-relaxed">
-              Subidas del 400% en 10 años. Cortes de suministro en momentos críticos. Dependencia total de geopolítica y corporaciones. <br />
-              <span className="text-red-400 font-bold">Estás pagando un alquiler que nunca termina.</span>
-            </p>
+          {/* TACTICAL GRID (HERO ONLY) */}
+          <div className="absolute inset-0 pointer-events-none [mask-image:linear-gradient(to_bottom,black_40%,transparent_100%)]">
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-[size:40px_40px] dark:hidden" />
+            <div className="absolute inset-0 hidden dark:block bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px]" />
           </div>
 
-          {/* The Future */}
-          <div className="space-y-6 text-center md:text-left">
-            <span className="text-lime-500 font-bold tracking-widest uppercase text-xs">La Solución</span>
-            <h3 className="text-3xl md:text-4xl font-bold text-white">La Independencia es Futuro</h3>
-            <p className="text-slate-300 text-lg leading-relaxed">
-              Coste fijo y predecible. Control total de tu producción con Baterías LFP. Valor patrimonial para tu vivienda desde el primer día. <br />
-              <span className="text-lime-400 font-bold">Tu casa empieza a trabajar para ti.</span>
-            </p>
-          </div>
-        </div>
-      </section>
+          {/* Atmosphere Glows */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_50%,rgba(132,204,22,0.15),transparent)] pointer-events-none dark:opacity-100 opacity-60"></div>
 
-      {/* 3. SERVICES GRID */}
-      <section className="py-32 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20 space-y-4">
-            <span className="text-blue-500 font-bold tracking-widest uppercase text-xs">Arquitectura Energética</span>
-            <h2 className="text-3xl md:text-5xl font-bold text-white">
-              Ingeniería Integral. <span className="text-lime-500">Sin Parches.</span>
+          <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center gap-10 animate-in fade-in zoom-in duration-1000 slide-in-from-bottom-5">
+
+            <div className="space-y-6">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-tight text-foreground">
+                Autonomía Energética <br className="hidden md:block" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-500 drop-shadow-[0_0_30px_rgba(132,204,22,0.3)]">
+                  Inteligente.
+                </span>
+              </h1>
+              <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed text-balance">
+                Integramos Solar, Baterías y Aerotermia en un ecosistema único.
+                Ingeniería de precisión para quienes buscan control total.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-5 w-full">
+              <Button asChild size="lg" className="h-16 px-10 rounded-full bg-[#84cc16] hover:bg-[#84cc16]/90 text-[#0b1d16] font-bold tracking-wide uppercase shadow-[0_0_30px_rgba(132,204,22,0.3)] hover:scale-105 transition-all">
+                <Link href="/simulador" className="flex items-center gap-3">
+                  DISEÑA TU ECOSISTEMA <ArrowRight className="w-5 h-5" />
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="h-16 px-10 rounded-full text-lg border-foreground/20 hover:bg-foreground/5 font-medium tracking-wide">
+                <Link href="/proyectos" className="flex items-center gap-3">
+                  Nuestra Ingeniería <LayoutGrid className="w-5 h-5 text-muted-foreground" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+
+        </section>
+
+        {/* SECCIÓN PROBLEMA VS SOLUCIÓN: VISUAL CONFRONTATION */}
+        <section className="container mx-auto px-4 py-24 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-6 leading-tight">
+              La verdad incómoda: <span className="text-[#ef4444] drop-shadow-[0_0_15px_rgba(239,68,68,0.4)]">Tu casa pierde dinero</span> mientras duermes.
             </h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">
-              No instalamos paneles; diseñamos plantas de generación de energía. Cada componente se comunica con el siguiente para maximizar la eficiencia.
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Subidas de luz, excedentes regalados y consumo ineficiente.
+              La fotovoltaica estándar es solo el primer paso; sin control, es energía desperdiciada.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <ServiceCard
-              title="Energía Solar"
-              desc="Paneles N-Type de máxima eficiencia. Generación optimizada incluso con sombras parciales."
-              icon={Sun}
-              href="/servicios/solar"
-              colorClass="text-yellow-500"
-            />
-            <ServiceCard
-              title="Baterías & Backup"
-              desc="Almacenaje inteligente LFP. Energía 24/7 y protección total ante apagones."
-              icon={Factory}
-              href="/servicios/baterias"
-              colorClass="text-emerald-500"
-            />
-            <ServiceCard
-              title="Aerotermia"
-              desc="Climatización invisible. Calor y frío con un COP de 5.0. Adiós al gas para siempre."
-              icon={Wind}
-              href="/servicios/aerotermia"
-              colorClass="text-blue-500"
-            />
-            <ServiceCard
-              title="Carga V.E."
-              desc="Cargadores con balanceo dinámico. Carga tu coche con el sol, gratis."
-              icon={PlugZap}
-              href="/servicios/cargadores"
-              colorClass="text-purple-500"
-            />
+          <div className="grid md:grid-cols-3 gap-8 lg:gap-12 relative items-stretch">
+
+            {/* PROBLEMA 1: ESTILO ROJO CRÍTICO */}
+            <div className="relative group rounded-3xl border border-red-900/30 bg-gradient-to-b from-red-950/20 to-transparent p-1 hover:border-red-500/50 transition-all duration-500">
+              <FeatureCard
+                icon={TrendingDown}
+                color="text-red-500"
+                title="Desperdicio de Excedentes"
+                description="Regalas tu energía a la red a 0,05€/kWh para luego comprarla a 0,20€/kWh por la noche. Un negocio ruinoso."
+              />
+              {/* Sombra roja interna */}
+              <div className="absolute inset-0 rounded-3xl bg-red-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+            </div>
+
+            {/* PROBLEMA 2: ESTILO ROJO CRÍTICO */}
+            <div className="relative group rounded-3xl border border-red-900/30 bg-gradient-to-b from-red-950/20 to-transparent p-1 hover:border-red-500/50 transition-all duration-500">
+              <FeatureCard
+                icon={XCircle}
+                color="text-red-500"
+                title="Consumo Ciego"
+                description="Tu aerotermia o cargador funcionan al máximo cuando la electricidad es más cara, ignorando si hace sol o no."
+              />
+              <div className="absolute inset-0 rounded-3xl bg-red-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+            </div>
+
+            {/* LA SOLUCIÓN: ESTILO VERDE LUMINOSO Y DESTACADO (HÉROE) */}
+            <div className="relative group rounded-3xl border border-[#84cc16]/50 bg-gradient-to-b from-[#84cc16]/10 to-[#162e20]/40 p-1 md:scale-110 z-10 shadow-[0_0_50px_rgba(132,204,22,0.2)] hover:shadow-[0_0_80px_rgba(132,204,22,0.4)] transition-all duration-500">
+              <FeatureCard
+                icon={CheckCircle2}
+                color="text-[#84cc16]"
+                title="El Cerebro Domoteknik"
+                description="Unificamos solar, batería, clima y carga. Tu casa decide automáticamente cuándo consumir tu propia energía gratuita."
+              />
+              {/* Brillo verde intenso */}
+              <div className="absolute inset-0 rounded-3xl bg-[#84cc16]/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none blur-xl"></div>
+            </div>
+
           </div>
-          {/* Domotica Highlight */}
-          <div className="mt-6">
-            <Link href="/servicios/domotica" className="group relative bg-slate-900/50 border border-slate-800 rounded-2xl p-8 flex flex-col md:flex-row items-center gap-8 hover:bg-slate-900 transition-colors">
-              <div className="w-16 h-16 bg-lime-500/10 rounded-full flex items-center justify-center text-lime-500 shrink-0">
-                <BrainCircuit className="w-8 h-8" />
-              </div>
-              <div className="flex-grow text-center md:text-left space-y-2">
-                <h3 className="text-2xl font-bold text-white">El Cerebro: Loxone Automation</h3>
-                <p className="text-slate-400">Todo el ecosistema orquestado por un único miniserver. La energía fluye a donde más se necesita, automáticamente.</p>
-              </div>
-              <div className="shrink-0 bg-lime-500/10 text-lime-500 px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider group-hover:bg-lime-500 group-hover:text-slate-950 transition-all">
-                Explorar Loxone
-              </div>
-            </Link>
+        </section>
+
+        {/* 3. SERVICES GRID */}
+        <section className="py-32 px-4">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-20 space-y-4">
+              <span className="text-blue-500 font-bold tracking-widest uppercase text-xs">Arquitectura Energética</span>
+              <h2 className="text-3xl md:text-5xl font-bold text-foreground">
+                Ingeniería Integral. <span className="text-primary">Sin Parches.</span>
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                No vendemos paneles, vendemos sistemas. Cada componente se comunica con los demás.
+                Todo controlado desde una única app local.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              <Link href="/servicios/fotovoltaica" className="block h-full cursor-pointer group">
+                <FeatureCard
+                  icon={Sun}
+                  color="text-amber-500"
+                  title="Generación Solar"
+                  description="Paneles Tier-1 con optimizadores. Garantía de producción a 25 años. Energía limpia desde el primer rayo de sol."
+                />
+              </Link>
+              <Link href="/servicios/domotica" className="block h-full cursor-pointer group">
+                <FeatureCard
+                  icon={Cpu}
+                  color="text-[#84cc16]"
+                  title="Gestión Inteligente"
+                  description="El Miniserver Loxone decide cuándo cargar baterías, cuándo vender a la red y cuándo activar el coche eléctrico."
+                />
+              </Link>
+              <Link href="/servicios/baterias" className="block h-full cursor-pointer group">
+                <FeatureCard
+                  icon={PlugZap}
+                  color="text-blue-500"
+                  title="Almacenamiento"
+                  description="Baterías de Litio Ferrofosfato (LFP). Máxima seguridad y ciclos de vida. Tu energía, disponible de noche."
+                />
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* 4. AUTHORITY (WHY US) */}
-      <section className="py-24 px-4 bg-slate-900 border-t border-slate-800">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 divide-y md:divide-y-0 md:divide-x divide-slate-800">
-          <AuthorityPillar
-            icon={Cpu}
-            title="Ingeniería In-House"
-            desc="No somos comerciales con un catálogo. Somos ingenieros diseñando sistemas a medida basándonos en tu curva de carga real."
-            color="bg-lime-500/10 text-lime-500"
-          />
-          <AuthorityPillar
-            icon={Wrench}
-            title="Instalación Quirúrgica"
-            desc="Nuestros técnicos no son subcontratas. Cableado oculto, protecciones industriales de grado Schneider/ABB y limpieza extrema."
-            color="bg-blue-500/10 text-blue-500"
-          />
-          <AuthorityPillar
-            icon={ShieldCheck}
-            title="Garantía Proactiva"
-            desc="Monitorización remota 24/7. Si un inversor falla, nos enteramos (y lo solucionamos) antes de que tú veas la alerta."
-            color="bg-purple-500/10 text-purple-500"
-          />
-        </div>
-      </section>
+        {/* SECCIÓN POR QUÉ: DISEÑO ARQUITECTÓNICO INTEGRADO */}
+        <section className="container mx-auto px-4 py-24 relative z-10">
 
-      {/* 5. FINAL CTA */}
-      <section className="py-32 px-4 relative overflow-hidden group">
-        {/* Background Effects */}
-        <div className="absolute inset-0 bg-lime-500/5 group-hover:bg-lime-500/10 transition-colors duration-1000"></div>
-        <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-[radial-gradient(circle_at_center,rgba(132,204,22,0.1)_0%,transparent_50%)] animate-spin-slow opacity-30 pointer-events-none"></div>
+          {/* CONTENEDOR MAESTRO DE CRISTAL */}
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
 
-        <div className="max-w-4xl mx-auto text-center relative z-10 space-y-10">
-          <h2 className="text-4xl md:text-6xl font-black text-white leading-tight">
-            ¿Cuánto dinero estás <br /> perdiendo cada mes?
+            {/* HEADER INTEGRADO (Título dentro de la caja) */}
+            <div className="p-8 md:p-10 border-b border-white/10 text-center bg-white/[0.02]">
+              <h2 className="text-3xl md:text-4xl font-black tracking-tight text-white mb-4">
+                ¿Por qué elegir Domoteknik?
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+                Ingeniería real aplicada a tu hogar. Sin atajos. Sin letra pequeña.
+              </p>
+            </div>
+
+            {/* GRID DE CARACTERÍSTICAS (Con divisores) */}
+            <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10">
+
+              {/* CARACTERÍSTICA 1 */}
+              <div className="p-8 md:p-12 flex flex-col items-center text-center hover:bg-white/5 transition-colors duration-300 group">
+                <div className="mb-6 p-4 rounded-full bg-[#84cc16]/10 group-hover:bg-[#84cc16]/20 transition-all shadow-[0_0_20px_rgba(132,204,22,0.1)] group-hover:shadow-[0_0_30px_rgba(132,204,22,0.3)]">
+                  <Wrench className="w-10 h-10 text-[#84cc16]" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">Instaladores Certificados</h3>
+                <p className="text-muted-foreground leading-relaxed text-sm">
+                  Platinum Partners de Loxone y Victron Energy. Formación continua directa del fabricante.
+                </p>
+              </div>
+
+              {/* CARACTERÍSTICA 2 */}
+              <div className="p-8 md:p-12 flex flex-col items-center text-center hover:bg-white/5 transition-colors duration-300 group">
+                <div className="mb-6 p-4 rounded-full bg-[#84cc16]/10 group-hover:bg-[#84cc16]/20 transition-all shadow-[0_0_20px_rgba(132,204,22,0.1)] group-hover:shadow-[0_0_30px_rgba(132,204,22,0.3)]">
+                  <ShieldCheck className="w-10 h-10 text-[#84cc16]" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">Garantía de Sistema</h3>
+                <p className="text-muted-foreground leading-relaxed text-sm">
+                  No solo cubrimos el producto. Cubrimos la programación y el funcionamiento conjunto por 5 años.
+                </p>
+              </div>
+
+              {/* CARACTERÍSTICA 3 */}
+              <div className="p-8 md:p-12 flex flex-col items-center text-center hover:bg-white/5 transition-colors duration-300 group">
+                <div className="mb-6 p-4 rounded-full bg-[#84cc16]/10 group-hover:bg-[#84cc16]/20 transition-all shadow-[0_0_20px_rgba(132,204,22,0.1)] group-hover:shadow-[0_0_30px_rgba(132,204,22,0.3)]">
+                  <Factory className="w-10 h-10 text-[#84cc16]" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">Ingeniería Propia</h3>
+                <p className="text-muted-foreground leading-relaxed text-sm">
+                  Sin subcontratas opacas. Nuestros ingenieros diseñan, instalan y mantienen tu proyecto.
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* 5. FINAL CTA */}
+        <section className="relative py-24 flex flex-col items-center text-center px-4">
+          {/* Título: Blanco Hueso Grande */}
+          <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-6 text-[#ecfccb] max-w-3xl">
+            ¿Cuánto dinero estás perdiendo cada mes?
           </h2>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-            Calcula tu potencial de independencia energética en <strong>30 segundos</strong>. Obtén un presupuesto preliminar y un análisis de ROI instantáneo.
+
+          {/* Descripción: GRIS ELEGANTE (La clave del cambio) */}
+          <p className="text-lg text-muted-foreground max-w-2xl mb-10 leading-relaxed">
+            Calcula tu potencial de independencia energética en <span className="text-white font-bold">30 segundos</span>.
+            Obtén un presupuesto preliminar y un análisis de ROI instantáneo.
           </p>
-          <Link href="/simulador" className="inline-flex items-center gap-3 bg-lime-500 text-slate-950 font-black px-10 py-6 rounded-2xl text-xl md:text-2xl hover:bg-white hover:scale-[1.02] transition-all shadow-[0_0_50px_rgba(132,204,22,0.4)]">
-            <PlugZap className="w-8 h-8" /> ABRIR SIMULADOR DE AHORRO
-          </Link>
-          <p className="text-sm text-slate-500 pt-4">
+
+          {/* Botón: Verde Intenso con Sombra */}
+          <Button
+            asChild
+            size="lg"
+            className="h-16 px-12 rounded-full bg-[#84cc16] text-[#0b1d16] hover:bg-[#65a30d] shadow-[0_0_30px_rgba(132,204,22,0.4)] hover:scale-105 transition-all duration-300"
+          >
+            <Link href="/simulador" className="flex items-center gap-2 text-lg font-black uppercase tracking-wide">
+              <PlugZap className="w-6 h-6" strokeWidth={2.5} />
+              ABRIR SIMULADOR DE AHORRO
+            </Link>
+          </Button>
+
+          {/* Footer pequeño: Gris muy sutil */}
+          <p className="mt-8 text-sm text-muted-foreground/70">
             Sin compromiso. Sin llamadas de spam. Solo ingeniería.
           </p>
-        </div>
-      </section>
+        </section>
+
+      </div>
     </div>
   );
 }

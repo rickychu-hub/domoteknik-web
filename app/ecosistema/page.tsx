@@ -7,12 +7,12 @@ import { cn } from "@/lib/utils";
 
 export default function EcosistemaPage() {
     return (
-        <div className="min-h-screen bg-slate-950 text-slate-50">
+        <div className="min-h-screen selection:bg-primary/30">
             {/* HERO SECTION */}
             <section className="relative py-24 px-4 overflow-hidden border-b border-slate-900">
                 {/* Background Effects */}
-                <div className="absolute top-0 right-0 w-1/2 h-full bg-slate-900/20 skew-x-12 transform origin-top-right" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-lime-900/5 via-slate-950 to-slate-950 pointer-events-none" />
+                <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/5 skew-x-12 transform origin-top-right" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
 
                 <div className="max-w-6xl mx-auto flex flex-col items-center text-center relative z-10 space-y-8">
                     <div className="inline-flex items-center space-x-2 text-lime-400 font-bold tracking-wider uppercase text-sm">
@@ -53,9 +53,9 @@ export default function EcosistemaPage() {
                             </motion.div>
 
                             {/* CENTER NODE */}
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-slate-900 rounded-full border border-slate-800 flex flex-col items-center justify-center z-20 shadow-2xl">
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-[#0b1d16] rounded-full border border-[#162e20] flex flex-col items-center justify-center z-20 shadow-2xl">
                                 <Home className="w-10 h-10 text-white mb-1" />
-                                <span className="text-[10px] font-bold text-lime-500 tracking-widest uppercase">DOMOTEKNIK</span>
+                                <span className="text-[10px] font-bold text-primary tracking-widest uppercase">DOMOTEKNIK</span>
                             </div>
 
                             {/* SATELLITES */}
@@ -63,34 +63,34 @@ export default function EcosistemaPage() {
 
                             {/* Top: Solar */}
                             <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-6 flex flex-col items-center z-20">
-                                <div className="w-16 h-16 bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center shadow-lg mb-2">
+                                <div className="w-16 h-16 bg-[#162e20] border border-white/10 rounded-2xl flex items-center justify-center shadow-lg mb-2">
                                     <Sun className="w-8 h-8 text-yellow-500" />
                                 </div>
-                                <span className="text-xs font-bold text-slate-400 uppercase bg-slate-950 px-2 py-1 rounded">Generación</span>
+                                <span className="text-xs font-bold text-muted-foreground uppercase bg-[#0b1d16] px-2 py-1 rounded border border-white/5">Generación</span>
                             </div>
 
                             {/* Right: Battery */}
                             <div className="absolute top-1/2 right-0 translate-x-6 -translate-y-1/2 flex flex-col items-center z-20">
-                                <div className="w-16 h-16 bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center shadow-lg mb-2">
-                                    <Battery className="w-8 h-8 text-green-500" />
+                                <div className="w-16 h-16 bg-[#162e20] border border-white/10 rounded-2xl flex items-center justify-center shadow-lg mb-2">
+                                    <Battery className="w-8 h-8 text-emerald-400" />
                                 </div>
-                                <span className="text-xs font-bold text-slate-400 uppercase bg-slate-950 px-2 py-1 rounded">Reserva</span>
+                                <span className="text-xs font-bold text-muted-foreground uppercase bg-[#0b1d16] px-2 py-1 rounded border border-white/5">Reserva</span>
                             </div>
 
                             {/* Bottom: Charger */}
                             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-6 flex flex-col items-center z-20">
-                                <span className="text-xs font-bold text-slate-400 uppercase bg-slate-950 px-2 py-1 rounded mb-2">Movilidad</span>
-                                <div className="w-16 h-16 bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center shadow-lg">
-                                    <Car className="w-8 h-8 text-blue-500" />
+                                <span className="text-xs font-bold text-muted-foreground uppercase bg-[#0b1d16] px-2 py-1 rounded mb-2 border border-white/5">Movilidad</span>
+                                <div className="w-16 h-16 bg-[#162e20] border border-white/10 rounded-2xl flex items-center justify-center shadow-lg">
+                                    <Car className="w-8 h-8 text-blue-400" />
                                 </div>
                             </div>
 
                             {/* Left: Climate */}
                             <div className="absolute top-1/2 left-0 -translate-x-6 -translate-y-1/2 flex flex-col items-center z-20">
-                                <div className="w-16 h-16 bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center shadow-lg mb-2">
+                                <div className="w-16 h-16 bg-[#162e20] border border-white/10 rounded-2xl flex items-center justify-center shadow-lg mb-2">
                                     <Thermometer className="w-8 h-8 text-red-400" />
                                 </div>
-                                <span className="text-xs font-bold text-slate-400 uppercase bg-slate-950 px-2 py-1 rounded">Clima</span>
+                                <span className="text-xs font-bold text-muted-foreground uppercase bg-[#0b1d16] px-2 py-1 rounded border border-white/5">Clima</span>
                             </div>
 
                         </div>
@@ -116,7 +116,7 @@ export default function EcosistemaPage() {
             </section>
 
             {/* LOXONE CONDUCTOR SECTION */}
-            <section className="py-24 px-4 bg-slate-900/30">
+            <section className="py-24 px-4 bg-white/5 backdrop-blur-sm">
                 <div className="max-w-4xl mx-auto text-center space-y-6">
                     <div className="flex justify-center mb-6">
                         <div className="bg-lime-500 text-slate-950 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest flex items-center gap-2">
@@ -138,7 +138,7 @@ export default function EcosistemaPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {/* LEFT: THE OLD WAY (CHAOS) */}
-                        <div className="bg-slate-900/50 border border-red-500/20 rounded-3xl p-8 md:p-12 relative overflow-hidden">
+                        <div className="bg-white/5 border border-red-500/20 rounded-3xl p-8 md:p-12 relative overflow-hidden backdrop-blur-md">
                             <div className="absolute top-0 right-0 p-4 opacity-20"><XCircle className="w-32 h-32 text-red-500" /></div>
                             <h3 className="text-2xl font-bold text-white mb-2">El Viejo Modelo</h3>
                             <p className="text-red-400 font-medium mb-8">Fragmentación y Problemas</p>
@@ -169,7 +169,7 @@ export default function EcosistemaPage() {
                         </div>
 
                         {/* RIGHT: DOMOTEKNIK (ORDER) */}
-                        <div className="bg-slate-900 border border-lime-500/30 rounded-3xl p-8 md:p-12 relative overflow-hidden shadow-[0_0_50px_rgba(132,204,22,0.05)]">
+                        <div className="bg-[#162e20]/60 border border-primary/30 rounded-3xl p-8 md:p-12 relative overflow-hidden shadow-[0_0_50px_rgba(132,204,22,0.05)] backdrop-blur-md">
                             <div className="absolute top-0 right-0 p-4 opacity-20"><CheckCircle2 className="w-32 h-32 text-lime-500" /></div>
                             <h3 className="text-2xl font-bold text-white mb-2">El Ecosistema Domoteknik</h3>
                             <p className="text-lime-500 font-medium mb-8">Integración y Paz Mental</p>
